@@ -15,17 +15,18 @@
 			function escapeHTML(str) {
 				return str.replace(/[<>&"'`]/g, (match) => escape[match]);
 			}
-			const { body } = await fetch("/message");
-			console.log(body)
-			const fizzbuzzStream = body.pipeThrough(new TextDecoderStream());
-			const reader = fizzbuzzStream.getReader();
-			while (true) {
-				const {done, value} = await reader.read();
-				if (done) {
-					break;
+			(async()=>{
+				const { body } = await fetch("/message");
+				const fizzbuzzStream = body.pipeThrough(new TextDecoderStream());
+				const reader = fizzbuzzStream.getReader();
+				while (true) {
+					const {done, value} = await reader.read();
+					if (done) {
+						break;
+					}
+					document.body.insertAdjacentHTML('beforeEnd', `<div>${escapeHTML(value)}</div>`);
 				}
-				document.body.insertAdjacentHTML('beforeEnd', `<div>${escapeHTML(value)}</div>`);
-			}
+			})()
 		</script>
 	</head>
 	<body>

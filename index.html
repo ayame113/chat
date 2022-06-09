@@ -24,7 +24,7 @@
 					if (done) {
 						break;
 					}
-					document.body.insertAdjacentHTML('beforeEnd', `<div>${escapeHTML(value)}</div>`);
+					document.body.insertAdjacentHTML('afterStart', `<div>${escapeHTML(value)}</div>`);
 				}
 			})()
 		</script>
